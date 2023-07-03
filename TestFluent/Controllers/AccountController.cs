@@ -67,7 +67,6 @@ namespace TestFluent.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public ActionResult LogOff()
         {
             SignInManager.SignOut();

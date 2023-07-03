@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TestFluent.Models.UserStoryTasks
+namespace TestFluent.Models
 {
-    public class UserStoryTasks
+    public class TaskModel
     {
         public virtual int Id { get; set; }
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
-        public virtual int User_Story_Id { get; set; }
+        public virtual UserStoryModel UserStory { get; set; }
     }
 }

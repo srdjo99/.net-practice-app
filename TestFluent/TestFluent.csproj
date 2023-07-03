@@ -217,16 +217,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserStoryController.cs" />
-    <Compile Include="Controllers\UserStoryTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseContext.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\EmployeeMap.cs" />
     <Compile Include="Models\Identity\IdentityStore.cs" />
     <Compile Include="Models\Identity\LoginViewModel.cs" />
     <Compile Include="Models\Identity\RegisterViewModel.cs" />
@@ -234,10 +230,10 @@
     <Compile Include="Models\Identity\User.cs" />
     <Compile Include="Models\Identity\UserManager.cs" />
     <Compile Include="Models\NHibernateHelper.cs" />
-    <Compile Include="Models\UserStoryTasks\UserStoryTasks.cs" />
-    <Compile Include="Models\UserStoryTasks\UserStoryTasksMap.cs" />
-    <Compile Include="Models\UserStory\UserStory.cs" />
-    <Compile Include="Models\UserStory\UserStoryMap.cs" />
+    <Compile Include="Models\TaskMap.cs" />
+    <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\UserStoryMap.cs" />
+    <Compile Include="Models\UserStoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -276,11 +272,14 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\UserStory\Index.cshtml" />
-    <Content Include="Views\UserStoryTasks\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\UserStory\Index.cshtml" />
+    <Content Include="Views\UserStory\Create.cshtml" />
+    <Content Include="Views\UserStory\Edit.cshtml" />
+    <Content Include="Views\UserStory\Delete.cshtml" />
+    <Content Include="Views\UserStory\Details.cshtml" />
+    <Content Include="Views\Account\LogOff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

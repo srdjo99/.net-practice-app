@@ -121,3 +121,4 @@ namespace TestFluent.Models.Identity
         }
     }
 }
+
