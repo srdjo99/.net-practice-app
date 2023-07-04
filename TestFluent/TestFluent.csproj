@@ -280,6 +280,7 @@
     <Content Include="Views\UserStory\Delete.cshtml" />
     <Content Include="Views\UserStory\Details.cshtml" />
     <Content Include="Views\Account\LogOff.cshtml" />
+    <Content Include="Views\UserStory\Tasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

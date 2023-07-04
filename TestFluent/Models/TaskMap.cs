@@ -9,7 +9,8 @@ namespace TestFluent.Models
             Id(x => x.Id).GeneratedBy.Increment();
             Map(x => x.Title);
             Map(x => x.Description);
-            References(x => x.UserStory);
+            //Map(x => x.UserStory_Id);
+            References(x => x.UserStory).Column("UserStory_Id");
             Table("tasks");
         }
     }

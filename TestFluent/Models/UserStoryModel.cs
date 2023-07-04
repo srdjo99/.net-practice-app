@@ -10,7 +10,7 @@ namespace TestFluent.Models
         public virtual int Id { get; set; }
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
-        public virtual IList<TaskModel> Tasks { get; set; } = new List<TaskModel>();
+        public virtual IList<TaskModel> Tasks { get; set; } 
 
     }
 }

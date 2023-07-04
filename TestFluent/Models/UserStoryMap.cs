@@ -11,6 +11,8 @@ namespace TestFluent.Models
             Map(x => x.Description);
             HasMany(x => x.Tasks).Cascade.AllDeleteOrphan().Inverse();
             Table("user_stories");
+
+
         }
     }
 }

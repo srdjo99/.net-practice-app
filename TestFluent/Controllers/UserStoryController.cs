@@ -11,6 +11,7 @@ namespace TestFluent.Controllers
     public class UserStoryController : Controller
     {
 
+       
         public ActionResult Index()
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -31,7 +32,6 @@ namespace TestFluent.Controllers
         public ActionResult Create(UserStoryModel userStory)
         {
             
-                // TODO: Add insert logic here
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -108,6 +108,17 @@ namespace TestFluent.Controllers
                 }
                 return RedirectToAction("Index");
            
+        }
+
+
+        // Tasks
+        public ActionResult Tasks(int id)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                var tasks = session.Query<TaskModel>().Where(t=> t.UserStory.Id == id).ToList();
+                return View(tasks);
+            }
         }
     }
 }
