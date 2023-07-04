@@ -2,12 +2,15 @@
 
 @{
     ViewBag.Title = "Tasks";
+    var ID = ViewBag.ID;
 }
 
 <h2>Tasks</h2>
 
+
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "Task", new { userStoryId = ID }, null)
 </p>
 <table class="table">
     <tr>
@@ -29,9 +32,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", "Task", new { id=item.Id }, null) |
+            @Html.ActionLink("Details", "Index", "Task", new { id=item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete", "Task", new { id=item.Id }, null)
         </td>
     </tr>
 }

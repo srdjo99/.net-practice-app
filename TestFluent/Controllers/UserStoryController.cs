@@ -14,6 +14,7 @@ namespace TestFluent.Controllers
        
         public ActionResult Index()
         {
+
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var userStories = session.Query<UserStoryModel>().ToList();
@@ -114,9 +115,10 @@ namespace TestFluent.Controllers
         // Tasks
         public ActionResult Tasks(int id)
         {
+            ViewBag.ID = id;
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var tasks = session.Query<TaskModel>().Where(t=> t.UserStory.Id == id).ToList();
+                var tasks = session.QueryOver<TaskModel>().Where(t=> t.UserStory.Id == id).List();
                 return View(tasks);
             }
         }

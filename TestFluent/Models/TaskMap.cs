@@ -10,7 +10,7 @@ namespace TestFluent.Models
             Map(x => x.Title);
             Map(x => x.Description);
             //Map(x => x.UserStory_Id);
-            References(x => x.UserStory).Column("UserStory_Id");
+            References(x => x.UserStory).Column("UserStory_Id").LazyLoad();
             Table("tasks");
         }
     }

@@ -9,10 +9,8 @@ namespace TestFluent.Models
             Id(x => x.Id).GeneratedBy.Increment();
             Map(x => x.Title);
             Map(x => x.Description);
-            HasMany(x => x.Tasks).Cascade.AllDeleteOrphan().Inverse();
+            HasMany(x => x.Tasks).Cascade.AllDeleteOrphan().Inverse().LazyLoad();
             Table("user_stories");
-
-
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TestFluent.Models
                 )
                .Mappings(m =>
                           m.FluentMappings
-                              .AddFromAssemblyOf<UserStoryModel>())
+                              .AddFromAssemblyOf<NHibernateHelper>())
                 .ExposeConfiguration(cfg => new SchemaExport(cfg)
                                                 .Create(false, false))
                 .BuildSessionFactory();
