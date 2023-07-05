@@ -10,99 +10,146 @@ namespace TestFluent.Controllers
 {
     public class TaskController : Controller
     {
-        // GET: Task
-        public ActionResult Index(int id)
+
+        public ActionResult Index(int userStoryId, int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var task = session.Get<TaskModel>(id);
+                var task = new TaskModel();
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                    task = session.Get<TaskModel>(id);
+                }
                 return View(task);
             }
+
+            return RedirectToAction("Login", "Account");
+           
         }
+
+
 
         public ActionResult Create(int userStoryId)
         {
-            var task = new TaskModel();
-            using(ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                var task = new TaskModel();
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                }
+                return View(task);
             }
-            return View(task);
+
+            return RedirectToAction("Login", "Account");
+           
         }
 
 
         [HttpPost]
         public ActionResult Create(int userStoryId, TaskModel task)
         {
-
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
-                using (ITransaction transaction = session.BeginTransaction())
+                using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    session.Save(task);
-                    transaction.Commit();
+                    task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Save(task);
+                        transaction.Commit();
+                    }
                 }
+
+                return RedirectToAction("Tasks", "UserStory", new { ID = userStoryId });
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Accoount");
+            
 
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int userStoryId, int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var task = session.Get<TaskModel>(id);
+                var task = new TaskModel();
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                    task = session.Get<TaskModel>(id);
+                }
+
                 return View(task);
             }
-        }
 
-
-        [HttpPost]
-        public ActionResult Edit(int id, TaskModel task)
-        {
-
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                var taskToUpdate = session.Get<TaskModel>(id);
-
-                taskToUpdate.Title = task.Title;
-                taskToUpdate.Description = task.Description;
-
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Save(taskToUpdate);
-                    transaction.Commit();
-                }
-            }
-            return RedirectToAction("Index");
-
-        }
-
-        public ActionResult Delete(int id)
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                var task = session.Get<TaskModel>(id);
-                return View(task);
-            }
+            return RedirectToAction("Login", "Account");
+            
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, TaskModel task)
+        public ActionResult Edit(int userStoryId, int id, TaskModel task)
         {
-
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                using (ITransaction transaction = session.BeginTransaction())
+                using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    session.Delete(task);
-                    transaction.Commit();
-                }
-            }
-            return RedirectToAction("Index");
+                    var taskToUpdate = session.Get<TaskModel>(id);
 
+                    taskToUpdate.Title = task.Title;
+                    taskToUpdate.Description = task.Description;
+
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Save(taskToUpdate);
+                        transaction.Commit();
+                    }
+                }
+                return RedirectToAction("Tasks", "UserStory", new { ID = userStoryId });
+            }
+
+            return RedirectToAction("Login", "Account");
+           
+        }
+
+        public ActionResult Delete(int userStoryId, int id)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                var task = new TaskModel();
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    task.UserStory = session.Query<UserStoryModel>().Where(u => u.Id == userStoryId).FirstOrDefault();
+                    task = session.Get<TaskModel>(id);
+                }
+                return View(task);
+            }
+
+            return RedirectToAction("Login", "Account");
+           
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Delete(int userStoryId, TaskModel task)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Delete(task);
+                        transaction.Commit();
+                    }
+                }
+                return RedirectToAction("Tasks", "UserStory", new { ID = userStoryId });
+            }
+
+            return RedirectToAction("Login", "Account");
+           
         }
     }
 }

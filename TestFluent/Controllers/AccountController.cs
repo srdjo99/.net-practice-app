@@ -22,7 +22,7 @@ namespace TestFluent.Controllers
                 if (result == SignInStatus.Success)
                 {
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "UserStory");
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace TestFluent.Controllers
                             transcation.Commit();
                         }
                     }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "UserStory");
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace TestFluent.Controllers
         public ActionResult LogOff()
         {
             SignInManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         public SignInManager SignInManager

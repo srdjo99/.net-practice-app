@@ -19,7 +19,7 @@ namespace TestFluent.Models
                         .ConnectionString(c =>
                             c.Host("localhost")
                             .Port(5432)
-                            .Database("TestDB")
+                            .Database("postgres")
                             .Username("postgres")
                             .Password("postgres")))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DatabaseContext>())

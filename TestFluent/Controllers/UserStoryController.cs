@@ -14,12 +14,17 @@ namespace TestFluent.Controllers
        
         public ActionResult Index()
         {
-
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var userStories = session.Query<UserStoryModel>().ToList();
-                return View(userStories);
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var userStories = session.Query<UserStoryModel>().ToList();
+                    return View(userStories);
+                }
             }
+
+            return RedirectToAction("Login", "Account");
+           
         }
 
 
@@ -32,7 +37,8 @@ namespace TestFluent.Controllers
         [HttpPost]
         public ActionResult Create(UserStoryModel userStory)
         {
-            
+            if(User.Identity.IsAuthenticated)
+            {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -43,23 +49,32 @@ namespace TestFluent.Controllers
                 }
 
                 return RedirectToAction("Index");
-            
+            }
+
+            return RedirectToAction("Login", "Account");
+
         }
 
         public ActionResult Edit(int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var userStory = session.Get<UserStoryModel>(id);
-                return View(userStory);
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var userStory = session.Get<UserStoryModel>(id);
+                    return View(userStory);
+                }
             }
+            
+            return RedirectToAction("Login", "Account");
         }
 
    
         [HttpPost]
         public ActionResult Edit(int id, UserStoryModel userStory)
         {
-            
+                if(User.Identity.IsAuthenticated)
+            {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     var userStoryToUpdate = session.Get<UserStoryModel>(id);
@@ -74,31 +89,48 @@ namespace TestFluent.Controllers
                     }
                 }
                 return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Login", "Account");
+                
             
         }
 
         public ActionResult Details(int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var userStory = session.Get<UserStoryModel>(id);
-                return View(userStory);
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var userStory = session.Get<UserStoryModel>(id);
+                    return View(userStory);
+                }
             }
+
+            return RedirectToAction("Login", "Account");
+            
         }
 
         public ActionResult Delete(int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var userStory = session.Get<UserStoryModel>(id);
-                return View(userStory);
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var userStory = session.Get<UserStoryModel>(id);
+                    return View(userStory);
+                }
             }
+
+            return RedirectToAction("Login", "Account");
+            
         }
 
         [HttpPost]
         public ActionResult Delete(int id, UserStoryModel userStory)
         {
-           
+                if(User.Identity.IsAuthenticated)
+            {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -108,6 +140,10 @@ namespace TestFluent.Controllers
                     }
                 }
                 return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Login", "Account");
+                
            
         }
 
@@ -115,12 +151,16 @@ namespace TestFluent.Controllers
         // Tasks
         public ActionResult Tasks(int id)
         {
-            ViewBag.ID = id;
-            using (ISession session = NHibernateHelper.OpenSession())
+            if(User.Identity.IsAuthenticated)
             {
-                var tasks = session.QueryOver<TaskModel>().Where(t=> t.UserStory.Id == id).List();
-                return View(tasks);
+                ViewBag.ID = id;
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    var tasks = session.QueryOver<TaskModel>().Where(t => t.UserStory.Id == id).List();
+                    return View(tasks);
+                }
             }
+            return RedirectToAction("Login", "Account");
         }
     }
 }

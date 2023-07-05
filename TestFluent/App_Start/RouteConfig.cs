@@ -14,10 +14,22 @@ namespace TestFluent
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               name: "Task",
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+               name: "TaskCreate",
                url: "UserStory/{userStoryId}/Tasks/Task/Create",
                defaults: new { controller = "Task", action = "Create" }
-);
+            );
+
+            routes.MapRoute(
+               name: "Task",
+               url: "UserStory/{userStoryId}/Task/{id}/{action}",
+               defaults: new { controller = "Task", action="Index", userStoryId = UrlParameter.Optional, id = UrlParameter.Optional, }
+            ); ;
 
             //routes.MapRoute(
             //     name: "Task",
@@ -26,17 +38,13 @@ namespace TestFluent
             //     new { taskId = @"\d+" }
             //     );
 
-            routes.MapRoute(
-                name: "UserStory",
-                url: "{controller}/{id}/{action}",
-                defaults: new { controller = "UserStory", action="Index", id = UrlParameter.Optional}
-                );
+            //routes.MapRoute(
+            //    name: "UserStory",
+            //    url: "{controller}/{id}/{action}",
+            //    defaults: new { controller = "UserStory", action="Index", id = UrlParameter.Optional}
+            //    );
             
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            
         }
     }
 }
